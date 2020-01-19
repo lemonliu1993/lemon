@@ -1,0 +1,59 @@
+1.部署并启动tomcat服务器
+1）解压apache-tomcat-6.0.16.zip到一个非中文目录下
+2）配置一个环境变量。java_home(即向JDK安装的根目录)或jre_home
+3) 通过双击apache-tomcat-6.0.16\bin目录下的startup.bat 启动服务器
+4）可以在浏览器中输入localhost:8080来检验Tomcat安装是否正确
+5) 若已经启动了一个Tomcat应用，若再启动同一个Tomcat应用，会抛出异常
+java.net.BindException:Address already in use:JVM_Bind:8080
+因为端口已经被占用了。
+
+2.Tomcat：开源的Servlet容器。
+
+3.可以通过修改server.xml文件中的配置信息来修改Tomcat服务器的端口号：
+
+    <Connector port="8090" protocol="HTTP/1.1"
+               connectionTimeout="20000"
+               redirectPort="8443" />
+把port的值改为其他的端口号即可。
+
+4.为了可以在任意目录下启动Tomcat服务器
+4.1 把 tomcat的bin目录添加到path下
+
+添加成功后，若在任意目录下通过startup启动Tomcat服务器，会有提示：
+
+The CATALINA_HOME environment variable is not defined correctly
+This environment variable is needed to run this program
+
+即：要求设置CATALINA_HOME这个环境变量
+
+5.设置CATALINA_HOME
+5.1通过阅读startup.bat批处理文件，可知CATALINA_HOME 环境变量下有一个bin目录，
+而bin目录又有一个catalina.bat文件，由此可知CATALINA_HOME指向的应该是Tomcat安装的根目录
+
+于是把Tomcat的根目录设为CATALINA_HOME 环境变量
+
+此时即可在任意目录下通过startup.bat,shutdown.bat启动，关闭Tomcat服务器
+
+6.继续阅读startup.bat文件，发现启动tomcat服务器的是catalina.bat文件
+
+在命令行窗口直接输入catalina，提示如下：
+commands:
+  debug             Start Catalina in a debugger
+  debug -security   Debug Catalina with a security manager
+  jpda start        Start Catalina under JPDA debugger
+  run               Start Catalina in the current window
+  run -security     Start in the current window with security manager
+  start             Start Catalina in a separate window
+  start -security   Start in a separate window with security manager
+  stop              Stop Catalina, waiting up to 5 seconds for the process to end
+  stop n            Stop Catalina, waiting up to n seconds for the process to end
+  stop -force       Stop Catalina, wait up to 5 seconds and then use kill -KILL if still running
+  stop n -force     Stop Catalina, wait up to n seconds and then use kill -KILL if still running
+  configtest        Run a basic syntax check on server.xml - check exit code for result
+  version           What version of tomcat are you running?
+Note: Waiting for the process to end and use of the -force option require that $CATALINA_PID is defined
+
+catalina命令有如上的可选参数。
+run:在catalina同一个命令行窗口下启动服务器
+start:开启一个新窗口启动服务器
+stop:关闭服务器
