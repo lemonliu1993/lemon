@@ -8,4 +8,10 @@
 3.如果某些依赖只需参与编译，而无须参与打包（例如：Tomcat自带了Servlet与JSP所对应的jar包），可将器scope设置为provided。
 如果某些依赖只是运行时需要，但无需参与编译(例如，JSTL的jar包)，可将其scope设置为runtime
 
+4.编写Servlet步骤：
+1）继承HttpServlet，让它成为一个Servlet类
+2）覆盖父类的doGet方法，用于接收GET请求
+3）转发到/WEB-INF/jsp/hello.jsp页面
+4）使用WebServlet注解并配置请求路径，对外发布Servlet服务。
+
 
