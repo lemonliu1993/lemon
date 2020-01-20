@@ -16,3 +16,5 @@
 
 5.推荐将JSP放到WEB-INF内部，而非外部，因为用户无法通过浏览器地址栏直接请求放在内部的JSP，必须通过Servlet程序进行转发(forward_或重定向(redirect)
 
+6.将日志级别设置为ERROR，并且提供了两种日志appender，分别是console与file
+需要堆这两种日志分别配置，然后指定只有com.lemon包下的类才能输出DEBUG级别的日志
