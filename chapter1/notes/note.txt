@@ -14,4 +14,5 @@
 3）转发到/WEB-INF/jsp/hello.jsp页面
 4）使用WebServlet注解并配置请求路径，对外发布Servlet服务。
 
+5.推荐将JSP放到WEB-INF内部，而非外部，因为用户无法通过浏览器地址栏直接请求放在内部的JSP，必须通过Servlet程序进行转发(forward_或重定向(redirect)
 
