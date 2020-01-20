@@ -3,3 +3,4 @@
 2）在webapp目录下，添加WEB-INF目录
 3）在WEB-INF目录下，添加web.xml文件
 
+2.WEB项目是需要打war包的。
