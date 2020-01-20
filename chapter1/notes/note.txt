@@ -4,3 +4,8 @@
 3）在WEB-INF目录下，添加web.xml文件
 
 2.WEB项目是需要打war包的。
+
+3.如果某些依赖只需参与编译，而无须参与打包（例如：Tomcat自带了Servlet与JSP所对应的jar包），可将器scope设置为provided。
+如果某些依赖只是运行时需要，但无需参与编译(例如，JSTL的jar包)，可将其scope设置为runtime
+
+
