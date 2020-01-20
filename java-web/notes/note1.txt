@@ -57,3 +57,31 @@ catalina命令有如上的可选参数。
 run:在catalina同一个命令行窗口下启动服务器
 start:开启一个新窗口启动服务器
 stop:关闭服务器
+
+7.第一个WEB应用程序：开发，并部署到Tomcat服务器下运行
+1） 在Eclipse新建一个Java Project
+2） 在Java项目下创建WEB开发的目录结构
+-WebContent
+    -WEB-INF
+        -classes(编译后的class文件必须放在该目录下)
+        -lib
+        -web.xml
+    html页面
+    JSP页面
+    图片...
+
+3） 在src下新建一个Person类
+package com.lemon.test;
+
+public class Person {
+    public String getPersonInfo(){
+        return "person info...";
+    }
+}
+
+4) 手工的Person类对应的class文件(含保)复制到classes目录下
+
+
+
+5） 在WebContent目录下新建一个JSP文件：
+
