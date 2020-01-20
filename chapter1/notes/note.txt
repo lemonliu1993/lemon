@@ -19,4 +19,4 @@
 6.将日志级别设置为ERROR，并且提供了两种日志appender，分别是console与file
 需要堆这两种日志分别配置，然后指定只有com.lemon包下的类才能输出DEBUG级别的日志
 
-
+7.对于Maven目录结构而言，classpath指的是java与resources这两个根目录
