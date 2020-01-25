@@ -80,8 +80,21 @@ public class Person {
 }
 
 4) 手工的Person类对应的class文件(含保)复制到classes目录下
-
+可以通过修改默认的输出目录达到自动把编译好的class放到classes目录下：
 
 
 5） 在WebContent目录下新建一个JSP文件：
+<%@page import="com.atguigu.test.Person"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
 
+
+<%
+	Person person = new Person();
+	System.out.print(person.getPersonInfo());
+%>
+
+6) 把WebContent目录复制到Tomcat的webapps目录下，并改名为：helloworld
+
+7) 在浏览器的地址栏输入：http://localhost:8989/helloworld/hello.jsp 即可
+              看到命令行的打印信息
