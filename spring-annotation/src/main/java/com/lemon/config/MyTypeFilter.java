@@ -32,7 +32,7 @@ public class MyTypeFilter implements TypeFilter {
 
         String className = classMetadata.getClassName();
         System.out.println("----->" + className);
-        if(className.contains("er")){
+        if (className.contains("er")) {
             return true;
         }
         return false;
