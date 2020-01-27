@@ -5,6 +5,7 @@ import com.lemon.bean.Person;
 import com.lemon.bean.Red;
 import com.lemon.condition.LinuxCondition;
 import com.lemon.condition.MyImortSelector;
+import com.lemon.condition.MyImportBeanDefinitionRegistrar;
 import com.lemon.condition.WindowCondition;
 import org.springframework.context.annotation.*;
 
@@ -16,7 +17,7 @@ import org.springframework.context.annotation.*;
 //类中组件统一设置，满足当前条件，这个类中配置的所有bean注册才能生效
 @Conditional({LinuxCondition.class})
 //@Import(Color.class)
-@Import({Color.class, Red.class, MyImortSelector.class})
+@Import({Color.class, Red.class, MyImortSelector.class, MyImportBeanDefinitionRegistrar.class})
 //导入组件，id默认是组件的全类名
 public class MainConfig2 {
     //默认是单实例的
@@ -73,6 +74,7 @@ public class MainConfig2 {
      * 3)@Import[快速给容器中导入一个组件]
      *  1).@Import(要导入到容器中的组件)：容器中就会自动注册这个组件，id是默认是全类名
      *  2).ImportSelector:返回需要导入的组件的全类名数组
+     *  3).ImportBeanDefinitionRegistrar:手动注册bean到容器中
      *
      */
 }
