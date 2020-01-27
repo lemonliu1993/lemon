@@ -16,12 +16,23 @@ import java.util.Map;
  */
 public class IOCTest {
 
-    ApplicationContext ctx = new AnnotationConfigApplicationContext(MainConfig2.class);
-
+    AnnotationConfigApplicationContext ctx = new AnnotationConfigApplicationContext(MainConfig2.class);
 
 
     @Test
-    public void test03(){
+    public void testImport() {
+        printBeans(ctx);
+    }
+
+    private void printBeans(AnnotationConfigApplicationContext applicationContext) {
+        String[] beanDefinitionNames = applicationContext.getBeanDefinitionNames();
+        for (String name : beanDefinitionNames) {
+            System.out.println(name);
+        }
+    }
+
+    @Test
+    public void test03() {
 
         Environment environment = ctx.getEnvironment();
 //        ConfigurableEnvironment environment =
@@ -30,7 +41,7 @@ public class IOCTest {
         System.out.println(property);
 
         String[] beanNamesForType = ctx.getBeanNamesForType(Person.class);
-        for(String name:beanNamesForType){
+        for (String name : beanNamesForType) {
             System.out.println(name);
         }
 
@@ -41,7 +52,7 @@ public class IOCTest {
 
     @SuppressWarnings("resource")
     @Test
-    public void test02(){
+    public void test02() {
         ApplicationContext ctx = new AnnotationConfigApplicationContext(MainConfig2.class);
 //        String[] definitionNames = ctx.getBeanDefinitionNames();
 //        for(String name: definitionNames){
@@ -55,13 +66,12 @@ public class IOCTest {
     }
 
 
-
     @SuppressWarnings("resource")
     @Test
-    public void test01(){
+    public void test01() {
         ApplicationContext ctx = new AnnotationConfigApplicationContext(MainConfig.class);
         String[] definitionNames = ctx.getBeanDefinitionNames();
-        for(String name: definitionNames){
+        for (String name : definitionNames) {
             System.out.println(name);
         }
     }
