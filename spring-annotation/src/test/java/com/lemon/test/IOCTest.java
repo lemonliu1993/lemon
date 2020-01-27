@@ -1,5 +1,6 @@
 package com.lemon.test;
 
+import com.lemon.bean.Blue;
 import com.lemon.bean.Person;
 import com.lemon.config.MainConfig;
 import com.lemon.config.MainConfig2;
@@ -22,6 +23,8 @@ public class IOCTest {
     @Test
     public void testImport() {
         printBeans(ctx);
+        Blue bean = ctx.getBean(Blue.class);
+        System.out.println(bean);
     }
 
     private void printBeans(AnnotationConfigApplicationContext applicationContext) {
