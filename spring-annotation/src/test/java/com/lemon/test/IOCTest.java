@@ -1,15 +1,43 @@
 package com.lemon.test;
 
+import com.lemon.bean.Person;
 import com.lemon.config.MainConfig;
 import com.lemon.config.MainConfig2;
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.core.env.ConfigurableEnvironment;
+import org.springframework.core.env.Environment;
+
+import java.util.Map;
 
 /**
  * Created by lemoon on 20/1/25 下午5:45
  */
 public class IOCTest {
+
+    ApplicationContext ctx = new AnnotationConfigApplicationContext(MainConfig2.class);
+
+
+
+    @Test
+    public void test03(){
+
+        Environment environment = ctx.getEnvironment();
+//        ConfigurableEnvironment environment =
+        String property = environment.getProperty("os.name");
+        //Mac OS X
+        System.out.println(property);
+
+        String[] beanNamesForType = ctx.getBeanNamesForType(Person.class);
+        for(String name:beanNamesForType){
+            System.out.println(name);
+        }
+
+        Map<String, Person> persons = ctx.getBeansOfType(Person.class);
+        System.out.println(persons);
+    }
+
 
     @SuppressWarnings("resource")
     @Test

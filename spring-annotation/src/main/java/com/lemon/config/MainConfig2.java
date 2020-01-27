@@ -1,16 +1,17 @@
 package com.lemon.config;
 
 import com.lemon.bean.Person;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Lazy;
-import org.springframework.context.annotation.Scope;
+import com.lemon.condition.LinuxCondition;
+import com.lemon.condition.WindowCondition;
+import org.springframework.context.annotation.*;
 
 /**
  * Created by lemoon on 20/1/26 下午2:17
  */
 
 @Configuration
+//类中组件统一设置，满足当前条件，这个类中配置的所有bean注册才能生效
+@Conditional({LinuxCondition.class})
 public class MainConfig2 {
     //默认是单实例的
 
@@ -42,5 +43,23 @@ public class MainConfig2 {
     public Person person() {
         System.out.println("给容器中添加Person......");
         return new Person("张三", 24);
+    }
+
+
+    /**
+     * @Conditional,按照一定条件进行判断,满足条件给容器注册bean
+     *
+     * 如果系统是windows,给容器中注册bill
+     * 如果系统是linux，给容器中注册linus
+     */
+    @Conditional({WindowCondition.class})
+    @Bean("bill")
+    public Person person01(){
+        return new Person("Bill Gates",62);
+    }
+
+    @Bean("linus")
+    public Person person02(){
+        return new Person("linus",48);
     }
 }
