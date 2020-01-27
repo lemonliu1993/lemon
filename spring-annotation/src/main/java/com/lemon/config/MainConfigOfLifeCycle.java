@@ -2,6 +2,7 @@ package com.lemon.config;
 
 import com.lemon.bean.Car;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 
 /**
@@ -23,12 +24,14 @@ import org.springframework.context.annotation.Configuration;
  *
  * 1）指定初始化和销毁方法：
  *      指定 init-method和 destroy-method=""
- *
+ *  2) 通过让Bean实现InitializingBean(定义初始化逻辑)
+ *                  DisposableBean(定义销毁逻辑)
  *
  *
  * Created by lemoon on 20/1/27 下午1:36
  */
 
+@ComponentScan("com.lemon.bean")
 @Configuration
 public class MainConfigOfLifeCycle {
 

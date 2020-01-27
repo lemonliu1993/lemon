@@ -80,6 +80,16 @@ public class MainConfig2 {
      *  1)默认获取到的是工厂bean调用getObject创建的对象
      *  2)要获取工厂Bean本身，我们需要给id前面加一个&
      *          &colorFactoryBean
+     *  3)可以使用JSP250:
+     *      @PostConstruct:在bean创建完成并且属性赋值完成，来执行初始化
+     *      @PreDestroy：在容器销毁bean之前通知我们进行清理工作
+     *  4)BeanPostProcessor,bean的后置处理器;
+     *      在bean初始化前后进行一些处理工作；
+     *      postProcessBeoreInitialization:在初始化之前工作
+     *      postProcessAfterInitialization:在初始化之后工作
+     *
+     *
+     *
      */
 
     @Bean
