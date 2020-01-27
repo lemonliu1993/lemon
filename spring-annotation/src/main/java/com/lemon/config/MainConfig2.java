@@ -1,6 +1,7 @@
 package com.lemon.config;
 
 import com.lemon.bean.Color;
+import com.lemon.bean.ColorFactoryBean;
 import com.lemon.bean.Person;
 import com.lemon.bean.Red;
 import com.lemon.condition.LinuxCondition;
@@ -75,6 +76,14 @@ public class MainConfig2 {
      *  1).@Import(要导入到容器中的组件)：容器中就会自动注册这个组件，id是默认是全类名
      *  2).ImportSelector:返回需要导入的组件的全类名数组
      *  3).ImportBeanDefinitionRegistrar:手动注册bean到容器中
-     *
+     * 4)使用Spring提供的FactoryBean(工厂Bean)
+     *  1)默认获取到的是工厂bean调用getObject创建的对象
+     *  2)要获取工厂Bean本身，我们需要给id前面加一个&
+     *          &colorFactoryBean
      */
+
+    @Bean
+    public ColorFactoryBean colorFactoryBean(){
+        return new ColorFactoryBean();
+    }
 }
