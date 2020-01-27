@@ -27,6 +27,29 @@ import org.springframework.context.annotation.Configuration;
  *
  *
  *
+ * 遍历得到容器中所有的BeanPostProcessor，挨个执行beforeInitialization，
+ * 一旦返回null，跳出for循环，不会执行后面的BeanPostProcessor
+ *
+ * BeanPostProcessor原理
+ * populateBean(beanName,mbd,instanceWrapper):给bean进行赋值
+ * initializeBean{
+ * if (mbd == null || !mbd.isSynthetic()) {
+ wrappedBean = this.applyBeanPostProcessorsBeforeInitialization(bean, beanName);
+ }
+
+ try {
+ this.invokeInitMethods(beanName, wrappedBean, mbd);
+ } catch (Throwable var6) {
+ throw new BeanCreationException(mbd != null ? mbd.getResourceDescription() : null, beanName, "Invocation of init method failed", var6);
+ }
+
+ if (mbd == null || !mbd.isSynthetic()) {
+ wrappedBean = this.applyBeanPostProcessorsAfterInitialization(wrappedBean, beanName);
+ }
+ *}
+ *
+ *
+ *
  * 1）指定初始化和销毁方法：
  *      指定 init-method和 destroy-method=""
  *  2) 通过让Bean实现InitializingBean(定义初始化逻辑)
