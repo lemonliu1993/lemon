@@ -4,6 +4,7 @@ import com.lemon.dao.BookDao;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
 
 /**
  * 自动装配：
@@ -13,6 +14,11 @@ import org.springframework.context.annotation.Configuration;
  *      1）默认有限按照类型去容器中找对应的组件：BookDao bean1 = applicationContext.getBean(BookDao.class);
  *      2)如果找到多个相同类型的组件，再将属性的名称作为组件的id去容器中查找
  *                      applicationContext.getBean("bookDao")
+ *      3)@Qualifier("bookDao")使用@Qualifier制定需要装配的组件的id，而不是使用属性名
+ *      4)自动装配一定要将属性赋值好，没有就会报错
+ *          可以使用@Autowired(required=false);
+ *      5）@Primary让Spring进行自动装配的时候，默认使用首选的bean
+ *          也可以继续使用@Qualifier指定需要装配的bean的名字
  *      @Service
         public class BookService {
 
@@ -27,6 +33,7 @@ import org.springframework.context.annotation.Configuration;
 public class MainConfigOfAutowired {
 
     @Bean("bookDao2")
+    @Primary
     public BookDao bookDao(){
         BookDao bookDao = new BookDao();
         bookDao.setLabel("2");

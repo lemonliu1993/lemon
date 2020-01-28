@@ -6,7 +6,7 @@ import org.springframework.stereotype.Repository;
  * Created by lemoon on 20/1/25 下午5:44
  */
 //名字默认是类名首字母小写
-@Repository
+//@Repository
 
 public class BookDao {
 
