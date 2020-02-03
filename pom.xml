@@ -12,6 +12,7 @@
         <module>java-web</module>
         <module>chapter1</module>
         <module>spring-annotation</module>
+        <module>interview</module>
     </modules>
 
     <dependencies>
