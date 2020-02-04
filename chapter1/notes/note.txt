@@ -26,3 +26,4 @@
 获取相应的结果集(ResultSet)
 查询前，先获取数据库连接(Connection)
 
+9.为了让Log4J起作用，必须再main/resources目录下创建一个名为log4j.properties的文件
