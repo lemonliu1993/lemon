@@ -1,4 +1,4 @@
-package com.lemon.session2.juc;
+package com.lemon.session2.juc.volatiles;
 
 import java.util.concurrent.TimeUnit;
 
