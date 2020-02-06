@@ -1,6 +1,5 @@
 package com.lemon.chapter2.util;
 
-import org.apache.commons.lang3.StringUtils;
 
 /**
  * 转型操作工具类
@@ -36,7 +35,7 @@ public class CastUtil {
         double doubleValue = defaultValue;
         if (obj != null) {
             String strValue = castString(obj);
-            if (StringUtils.isNotEmpty(strValue)) {
+            if (StringUtil.isNotEmpty(strValue)) {
                 try {
                     doubleValue = Double.parseDouble(strValue);
                 } catch (NumberFormatException e) {
@@ -62,7 +61,7 @@ public class CastUtil {
         long longValue = defaultValue;
         if (obj != null) {
             String strValue = castString(obj);
-            if (StringUtils.isNotEmpty(strValue)) {
+            if (StringUtil.isNotEmpty(strValue)) {
                 try {
                     longValue = Long.parseLong(strValue);
                 } catch (NumberFormatException e) {
@@ -88,7 +87,7 @@ public class CastUtil {
         int intValue = defaultValue;
         if (obj != null) {
             String strValue = castString(obj);
-            if (StringUtils.isNotEmpty(strValue)) {
+            if (StringUtil.isNotEmpty(strValue)) {
                 try {
                     intValue = Integer.parseInt(strValue);
                 } catch (NumberFormatException e) {
