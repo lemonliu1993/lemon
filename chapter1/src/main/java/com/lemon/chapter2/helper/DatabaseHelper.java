@@ -133,5 +133,22 @@ public final class DatabaseHelper<T> {
         return result;
     }
 
+    /**
+     * 执行更新语句(包括update,insert,delete)
+     */
+    public static int executeUpdate(String sql, Object... params) {
+        int rows = 0;
+        try {
+            Connection conn = getConnection();
+            rows = QUERY_RUNNER.update(conn, sql, params);
+        } catch (SQLException e) {
+            LOGGER.error("execute update failure", e);
+            throw new RuntimeException(e);
+        } finally {
+            closeConnection();
+        }
+        return rows;
+    }
+
 
 }
