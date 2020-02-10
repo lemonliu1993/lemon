@@ -4,6 +4,7 @@ import com.lemon.chapter2.util.PropsUtil;
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.handlers.BeanHandler;
 import org.apache.commons.dbutils.handlers.BeanListHandler;
+import org.apache.commons.dbutils.handlers.MapListHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -11,6 +12,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Map;
 import java.util.Properties;
 
 /**
@@ -114,6 +116,21 @@ public final class DatabaseHelper<T> {
             closeConnection();
         }
         return entity;
+    }
+
+    /**
+     * 执行查询语句
+     */
+    public static List<Map<String, Object>> executeQuery(String sql, Object... params) {
+        List<Map<String, Object>> result;
+        try {
+            Connection conn = getConnection();
+            result = QUERY_RUNNER.query(conn, sql, new MapListHandler(), params);
+        } catch (Exception e) {
+            LOGGER.error("execute query failure", e);
+            throw new RuntimeException(e);
+        }
+        return result;
     }
 
 
