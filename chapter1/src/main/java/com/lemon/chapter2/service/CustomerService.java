@@ -6,6 +6,7 @@ import com.lemon.chapter2.util.PropsUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.xml.crypto.Data;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -27,30 +28,8 @@ public class CustomerService {
      * @return
      */
     public List<Customer> getCustomerList(String keyword) {
-        Connection conn = null;
-        try {
-            List<Customer> customerList = new ArrayList<Customer>();
-            String sql = "SELECT * FROM customer";
-            conn = DatabaseHelper.getConnection();
-            PreparedStatement stmt = conn.prepareStatement(sql);
-            ResultSet rs = stmt.executeQuery();
-            while (rs.next()) {
-                Customer customer = new Customer();
-                customer.setId(rs.getLong("id"));
-                customer.setName(rs.getString("name"));
-                customer.setContact(rs.getString("contact"));
-                customer.setTelephone(rs.getString("telephone"));
-                customer.setEmail(rs.getString("email"));
-                customer.setRemark(rs.getString("remark"));
-                customerList.add(customer);
-            }
-            return customerList;
-        } catch (SQLException e) {
-            LOGGER.error("execute sql failture", e);
-        } finally {
-            DatabaseHelper.closeConnection(conn);
-        }
-        return null;
+        String sql = "SELECT * FROM customer";
+        return DatabaseHelper.queryEntityList(Customer.class, sql);
     }
 
 
