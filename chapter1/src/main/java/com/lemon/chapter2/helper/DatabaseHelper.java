@@ -2,6 +2,7 @@ package com.lemon.chapter2.helper;
 
 import com.lemon.chapter2.util.PropsUtil;
 import org.apache.commons.dbutils.QueryRunner;
+import org.apache.commons.dbutils.handlers.BeanHandler;
 import org.apache.commons.dbutils.handlers.BeanListHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -96,6 +97,23 @@ public final class DatabaseHelper<T> {
             closeConnection();
         }
         return entityList;
+    }
+
+    /**
+     * 查询实体
+     */
+    public static <T> T queryEntity(Class<T> entityClass, String sql, Object... pararms) {
+        T entity;
+        try {
+            Connection conn = getConnection();
+            entity = QUERY_RUNNER.query(conn, sql, new BeanHandler<T>(entityClass), pararms);
+        } catch (SQLException e) {
+            LOGGER.error("query entity failure", e);
+            throw new RuntimeException(e);
+        } finally {
+            closeConnection();
+        }
+        return entity;
     }
 
 
