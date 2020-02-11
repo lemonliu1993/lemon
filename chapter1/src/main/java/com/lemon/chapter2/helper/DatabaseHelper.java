@@ -1,5 +1,6 @@
 package com.lemon.chapter2.helper;
 
+import com.lemon.chapter2.util.CollectionUtil;
 import com.lemon.chapter2.util.PropsUtil;
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.handlers.BeanHandler;
@@ -148,6 +149,36 @@ public final class DatabaseHelper<T> {
             closeConnection();
         }
         return rows;
+    }
+
+    /**
+     * 插入实体
+     */
+    public static <T> boolean insertEntity(Class<T> entityClass, Map<String, Object> fieldMap) {
+        if (CollectionUtil.isEmpty(fieldMap)) {
+            LOGGER.error("can not insert entity:fieldMap is empty");
+            return false;
+        }
+
+        String sql = "INSERT INTO " + getTableName(entityClass);
+        StringBuilder columns = new StringBuilder("(");
+        StringBuilder values = new StringBuilder("(");
+        for (String fieldName : fieldMap.keySet()) {
+            columns.append(fieldName).append(", ");
+            values.append("?, ");
+        }
+        columns.replace(columns.lastIndexOf(", "), columns.length(), ")");
+        values.replace(values.lastIndexOf(", "), values.length(), ")"));
+        sql += columns + " VALUES " + values;
+
+        Object[] params = fieldMap.values().toArray();
+        return executeUpdate(sql, params) == 1;
+
+    }
+
+
+    private static String getTableName(Class<?> entityClass){
+        return entityClass.getSimpleName();
     }
 
 
