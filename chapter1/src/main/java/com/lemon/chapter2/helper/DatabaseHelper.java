@@ -12,9 +12,7 @@ import org.slf4j.LoggerFactory;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.util.List;
-import java.util.Map;
-import java.util.Properties;
+import java.util.*;
 
 /**
  * 数据库操作助手类
@@ -168,7 +166,7 @@ public final class DatabaseHelper<T> {
             values.append("?, ");
         }
         columns.replace(columns.lastIndexOf(", "), columns.length(), ")");
-        values.replace(values.lastIndexOf(", "), values.length(), ")"));
+        values.replace(values.lastIndexOf(", "), values.length(), ")");
         sql += columns + " VALUES " + values;
 
         Object[] params = fieldMap.values().toArray();
@@ -176,8 +174,32 @@ public final class DatabaseHelper<T> {
 
     }
 
+    /**
+     * 更新实体
+     *
+     * @return
+     */
+    public static <T> boolean updateEntity(Class<T> entityClass, long id, Map<String, Object> fieldMap) {
+        if (CollectionUtil.isEmpty(fieldMap)) {
+            LOGGER.error("can not update entity:fieldmap is empty");
+            return false;
+        }
 
-    private static String getTableName(Class<?> entityClass){
+        String sql = "UPDATE " + getTableName(entityClass) + " SET ";
+        StringBuilder columns = new StringBuilder();
+        for (String fieldName : fieldMap.keySet()) {
+            columns.append(fieldName).append("=?, ");
+        }
+        sql += columns.substring(0, columns.lastIndexOf(", ")) + " WHERE id=?";
+        List<Object> paramList = new ArrayList<Object>();
+        paramList.addAll(fieldMap.values());
+        paramList.add(id);
+        Object[] params = paramList.toArray();
+        return executeUpdate(sql, params) == 1;
+    }
+
+
+    private static String getTableName(Class<?> entityClass) {
         return entityClass.getSimpleName();
     }
 
