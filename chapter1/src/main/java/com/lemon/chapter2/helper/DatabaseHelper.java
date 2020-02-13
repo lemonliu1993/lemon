@@ -198,6 +198,16 @@ public final class DatabaseHelper<T> {
         return executeUpdate(sql, params) == 1;
     }
 
+    /**
+     * 删除实体
+     *
+     * @return
+     */
+    public static <T> boolean deleteEntity(Class<T> entityClass, long id) {
+        String sql = "DELETE FROM " + getTableName(entityClass) + " WHERE id=?";
+        return executeUpdate(sql, id) == 1;
+    }
+
 
     private static String getTableName(Class<?> entityClass) {
         return entityClass.getSimpleName();
