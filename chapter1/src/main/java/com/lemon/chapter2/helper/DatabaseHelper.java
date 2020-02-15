@@ -67,7 +67,7 @@ public final class DatabaseHelper<T> {
                 //如果频繁调用getConnection方法就会频繁创建数据库连接，这样做一定会造成大量的系统开销，毕竟数据库的连接数是有限的。
                 //因此，需要考虑一种解决方案，将这些数据库连接进行"池化"，也就是说，我们需要弄一个"数据库连接池"出来。Apache DBCP是最好的数据库连接池之一。
 //                conn = DriverManager.getConnection(URL, USERNAME, PASSWORD);
-                conn=DATA_SOURCE.getConnection();
+                conn = DATA_SOURCE.getConnection();
             } catch (SQLException e) {
                 LOGGER.error("get connection failure", e);
                 throw new RuntimeException(e);
