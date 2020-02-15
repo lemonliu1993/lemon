@@ -2,6 +2,7 @@ package com.lemon.chapter2.helper;
 
 import com.lemon.chapter2.util.CollectionUtil;
 import com.lemon.chapter2.util.PropsUtil;
+import org.apache.commons.dbcp2.BasicDataSource;
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.handlers.BeanHandler;
 import org.apache.commons.dbutils.handlers.BeanListHandler;
@@ -22,11 +23,13 @@ public final class DatabaseHelper<T> {
 
     //为了确保一个线程中只有一个Connection，我们可以使用ThreadLocal来存放本地线程遍历。
     //也就是说，将当前线程中的Connection放入ThreadLocal中存起来，这些Connection一定不会出现线程不安全问题，可以将ThreadLocal理解为一个隔离线程的容器。
-    private static final ThreadLocal<Connection> CONNECTION_HOLDER = new ThreadLocal<Connection>();
+    private static final ThreadLocal<Connection> CONNECTION_HOLDER;
 
     private static final Logger LOGGER = LoggerFactory.getLogger(DatabaseHelper.class);
 
-    private static final QueryRunner QUERY_RUNNER = new QueryRunner();
+    private static final QueryRunner QUERY_RUNNER;
+
+    private static final BasicDataSource DATA_SOURCE;
 
     private static final String DRIVER;
     private static final String URL;
@@ -35,12 +38,18 @@ public final class DatabaseHelper<T> {
 
 
     static {
+        CONNECTION_HOLDER = new ThreadLocal<Connection>();
+        QUERY_RUNNER = new QueryRunner();
         Properties conf = PropsUtil.loadProps("config.properties");
         DRIVER = conf.getProperty("jdbc.driver");
         URL = conf.getProperty("jdbc.url");
         USERNAME = conf.getProperty("jdbc.username");
         PASSWORD = conf.getProperty("jdbc.password");
-
+        DATA_SOURCE = new BasicDataSource();
+        DATA_SOURCE.setDriverClassName(DRIVER);
+        DATA_SOURCE.setUrl(URL);
+        DATA_SOURCE.setUsername(USERNAME);
+        DATA_SOURCE.setPassword(PASSWORD);
         try {
             Class.forName(DRIVER);
         } catch (ClassNotFoundException e) {
@@ -55,7 +64,10 @@ public final class DatabaseHelper<T> {
         Connection conn = CONNECTION_HOLDER.get();
         if (conn == null) {
             try {
-                conn = DriverManager.getConnection(URL, USERNAME, PASSWORD);
+                //如果频繁调用getConnection方法就会频繁创建数据库连接，这样做一定会造成大量的系统开销，毕竟数据库的连接数是有限的。
+                //因此，需要考虑一种解决方案，将这些数据库连接进行"池化"，也就是说，我们需要弄一个"数据库连接池"出来。Apache DBCP是最好的数据库连接池之一。
+//                conn = DriverManager.getConnection(URL, USERNAME, PASSWORD);
+                conn=DATA_SOURCE.getConnection();
             } catch (SQLException e) {
                 LOGGER.error("get connection failure", e);
                 throw new RuntimeException(e);
