@@ -27,3 +27,5 @@
 查询前，先获取数据库连接(Connection)
 
 9.为了让Log4J起作用，必须再main/resources目录下创建一个名为log4j.properties的文件
+
+10.main/java,main/resources,test/java,test/resources都是classpath的根目录，当运行单元测试时，遵循"就近原则"，
