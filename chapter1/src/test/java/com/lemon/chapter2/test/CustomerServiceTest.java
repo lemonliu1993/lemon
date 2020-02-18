@@ -22,7 +22,6 @@ import java.util.Map;
 public class CustomerServiceTest {
 
 
-
     private final CustomerService customerService;
 
     public CustomerServiceTest() {
@@ -36,7 +35,7 @@ public class CustomerServiceTest {
         InputStream is = Thread.currentThread().getContextClassLoader().getResourceAsStream(file);
         BufferedReader reader = new BufferedReader(new InputStreamReader(is));
         String sql;
-        while(sql=reader.readLine()!=null){
+        while ((sql = reader.readLine()) != null) {
             DatabaseHelper.executeUpdate(sql);
         }
     }
