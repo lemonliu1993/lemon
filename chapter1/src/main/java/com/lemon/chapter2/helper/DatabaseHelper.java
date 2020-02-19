@@ -10,6 +10,9 @@ import org.apache.commons.dbutils.handlers.MapListHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -223,6 +226,23 @@ public final class DatabaseHelper<T> {
 
     private static String getTableName(Class<?> entityClass) {
         return entityClass.getSimpleName();
+    }
+
+    /**
+     * 执行SQL文件
+     */
+    public static void executeSqlFile(String filePath)throws Exception{
+        InputStream is = Thread.currentThread().getContextClassLoader().getResourceAsStream(filePath);
+        BufferedReader reader = new BufferedReader(new InputStreamReader(is));
+        try {
+            String sql;
+            while((sql=reader.readLine())!=null){
+                executeUpdate(sql);
+            }
+        }catch (Exception e){
+            LOGGER.error("execute sql file failture",e);
+            throw new RuntimeException(e);
+        }
     }
 
 
