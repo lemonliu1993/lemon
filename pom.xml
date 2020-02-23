@@ -13,6 +13,7 @@
         <module>chapter1</module>
         <module>spring-annotation</module>
         <module>interview</module>
+        <module>smart-framework</module>
     </modules>
 
     <dependencies>
