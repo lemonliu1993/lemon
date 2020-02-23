@@ -1,0 +1,11 @@
+chapter2中使用了一系列Servlet来充当MVC模式中的Controller。Servlet的数量会随着业务功能的扩展而不断增加，这不是我们所期望的。
+为减少Servlet的数量，将某类业务交给Controller来处理，它负责调用Service的相关方法，并将返回值放入Request或Response中。
+此外，Service不是通过new的方式来创建的，而是通过一种名为"依赖注入"的方式，让框架为我们来创建所需要的对象。
+
+chapter3目标：
+快速搭建开发框架
+加载饼读取配置文件
+实现一个简单的IOC容器
+加载指定的类
+初始化框架
+
