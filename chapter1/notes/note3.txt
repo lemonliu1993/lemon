@@ -9,3 +9,6 @@ chapter3目标：
 加载指定的类
 初始化框架
 
+一个Controller类包含了多个Action方法，可返回View或Data对象，分别对应JSP或JSON数据
+在普通请求的情况下，可返回JSP页面；在Ajax请求的情况下，需要返回JSON数据。
+
