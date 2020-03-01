@@ -15,6 +15,7 @@
         <module>interview</module>
         <module>smart-framework</module>
         <module>chapter3</module>
+        <module>mybatis</module>
     </modules>
 
     <dependencies>
