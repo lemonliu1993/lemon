@@ -1,2 +1,8 @@
 IocHelper的静态块中实现相关逻辑，完成Ioc容器的初始化工作。这个静态块在什么时候加载呢？
 当IocHelper这个类被加载的时候，就会加载它的静态块。然后我们需要一个统一的地方来加载这个IocHelper
+
+通过ClassHelper，我们可以获取所有定义了Controller注解的类，
+可以通过反射获取该类中所有带Action注解的方法("简称Action方法"),
+获取Action注解中的请求表达式，进而获取请求方法与请求路径
+封装一个请求对象(Request)与处理对象(Handler)，最后将Request与Handler建立一个映射关系，
+放入一个Action Map中，并提供一个可根据请求方法与请求路径获取处理对象的方法。
