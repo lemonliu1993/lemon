@@ -6,3 +6,9 @@ IocHelper的静态块中实现相关逻辑，完成Ioc容器的初始化工作�
 获取Action注解中的请求表达式，进而获取请求方法与请求路径
 封装一个请求对象(Request)与处理对象(Handler)，最后将Request与Handler建立一个映射关系，
 放入一个Action Map中，并提供一个可根据请求方法与请求路径获取处理对象的方法。
+
+我们要编写一个Servlet，让它来处理所有的请求。从HttpServletResquest对象中获取请求方法与请求路径，通过ControllerHelper#getHandler方法来获取Handler对象
+
+可从Handler对象中获取Action的方法返回值，该返回值可能有两种情况
+1.若返回值是View类型的视图对象，则返回一个JSP页面.
+2.若返回值是Data类型的数据对象，则返回一个JSON数据。
