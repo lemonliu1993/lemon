@@ -38,7 +38,7 @@ public final class JsonUtil {
             LOGGER.error("convert JSON to POJO failure",e);
             throw new RuntimeException(e);
         }
-        return pojo;;
+        return pojo;
     }
 
 }
