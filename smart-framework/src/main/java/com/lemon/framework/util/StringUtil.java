@@ -32,4 +32,7 @@ public final class StringUtil {
     }
 
 
+    public static String[] splitString(String body, String s) {
+        return body.split(s);
+    }
 }
