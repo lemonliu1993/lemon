@@ -18,8 +18,14 @@ public class Main {
 //                dynamicProxy
 //        );
 //        helloProxy.say("Jack");
-        DynamicProxy dynamicProxy = new DynamicProxy(new HelloImpl());
-        Hello helloProxy = dynamicProxy.getProxy();
-        helloProxy.say("jack");
+//        DynamicProxy dynamicProxy = new DynamicProxy(new HelloImpl());
+//        Hello helloProxy = dynamicProxy.getProxy();
+//        helloProxy.say("jack");
+
+        DynamicProxy dynamicProxy1 = new DynamicProxy(new HelloService());
+        HelloService proxy = dynamicProxy1.getProxy();
+        proxy.say("sss");
+
+
     }
 }
