@@ -2,6 +2,7 @@ package com.lemon.framework.proxy;
 
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
+import java.lang.reflect.Proxy;
 
 /**
  * Created by lemoon on 2020/3/18 9:54 PM
@@ -33,7 +34,10 @@ public class DynamicProxy implements InvocationHandler {
 
     }
 
-
+    @SuppressWarnings("unchecked")
+    public <T> T getProxy() {
+        return (T) Proxy.newProxyInstance(target.getClass().getClassLoader(), target.getClass().getInterfaces(), this);
+    }
 
 
 }
