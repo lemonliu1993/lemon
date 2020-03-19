@@ -26,8 +26,9 @@ public class Main {
 //        HelloService proxy = dynamicProxy1.getProxy();
 //        proxy.say("sss");
 
-            CGLibProxy cgLibProxy = new CGLibProxy();
-        HelloService proxy = cgLibProxy.getProxy(HelloService.class);
+//        CGLibProxy cgLibProxy = new CGLibProxy();
+//        HelloService proxy = cgLibProxy.getProxy(HelloService.class);
+        HelloService proxy = CGLibProxy.getInstance().getProxy(HelloService.class);
         proxy.say("ssss");
 
 
