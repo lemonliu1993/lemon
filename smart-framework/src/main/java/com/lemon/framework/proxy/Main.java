@@ -22,9 +22,13 @@ public class Main {
 //        Hello helloProxy = dynamicProxy.getProxy();
 //        helloProxy.say("jack");
 
-        DynamicProxy dynamicProxy1 = new DynamicProxy(new HelloService());
-        HelloService proxy = dynamicProxy1.getProxy();
-        proxy.say("sss");
+//        DynamicProxy dynamicProxy1 = new DynamicProxy(new HelloService());
+//        HelloService proxy = dynamicProxy1.getProxy();
+//        proxy.say("sss");
+
+            CGLibProxy cgLibProxy = new CGLibProxy();
+        HelloService proxy = cgLibProxy.getProxy(HelloService.class);
+        proxy.say("ssss");
 
 
     }
