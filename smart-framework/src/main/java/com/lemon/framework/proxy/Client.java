@@ -5,7 +5,10 @@ package com.lemon.framework.proxy;
  */
 public class Client {
     public static void main(String[] args) {
-        Greeting greetingProxy = new GreetingProxy(new GreetingImpl());
-        greetingProxy.sayHello("Jack");
+//        Greeting greetingProxy = new GreetingProxy(new GreetingImpl());
+//        greetingProxy.sayHello("Jack");
+
+        Greeting greeting = new JDKDynamicProxy(new GreetingImpl()).getProxy();
+        greeting.sayHello("Jack");
     }
 }
