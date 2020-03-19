@@ -8,7 +8,10 @@ public class Client {
 //        Greeting greetingProxy = new GreetingProxy(new GreetingImpl());
 //        greetingProxy.sayHello("Jack");
 
-        Greeting greeting = new JDKDynamicProxy(new GreetingImpl()).getProxy();
+//        Greeting greeting = new JDKDynamicProxy(new GreetingImpl()).getProxy();
+//        greeting.sayHello("Jack");
+
+        Greeting greeting = CGLibDynamicProxy.getInstance().getProxy(GreetingImpl.class);
         greeting.sayHello("Jack");
     }
 }
