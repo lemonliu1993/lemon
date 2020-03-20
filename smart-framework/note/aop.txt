@@ -10,4 +10,7 @@ cglib提供的是方法级别的代理，也可以理解为对方法的拦截（
 AOP：前置增强，后置增强，环绕增强(编程式)
 before在Spring AOP里就叫Before Advice(前置增强)  Advice不翻译为通知，而是对原有代码功能的一种"增强"。CGLib中也有一个Enhancer类，它也是一个增强类
 after叫After Advice(后置增强)，因为它放在后面来增强代码的功能。
-before和after合并在一起，叫Around Advice(环绕增强),
+before和after合并在一起，叫Around Advice(环绕增强)。
+
+能否对类进行增强呢？用AOP的行话来讲，对方法的增强叫做Weaving(织入)，对类的增强叫做Introduction(引入).
+Introduction Advice(引入增强)就是对类的功能增强，它也是Spring AOP提供的最后一种增强。
