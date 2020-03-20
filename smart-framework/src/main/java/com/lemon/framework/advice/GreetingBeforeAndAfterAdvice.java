@@ -1,7 +1,7 @@
 package com.lemon.framework.advice;
 
-import com.lemon.framework.aop.AfterReturningAdvice;
-import com.lemon.framework.aop.MethodBeforeAdvice;
+import org.springframework.aop.AfterReturningAdvice;
+import org.springframework.aop.MethodBeforeAdvice;
 
 import java.lang.reflect.Method;
 
