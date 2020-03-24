@@ -23,4 +23,5 @@
 
     <context:component-scan base-package="com.lemon"/>
     <aop:aspectj-autoproxy proxy-target-class="true"/>
+    <!--proxy-target-class属性，默认是false，默认只能代理接口(使用JDK动态代理)当为true时，才能代理目标类(使用cglib动态代理) -->
 </beans>
