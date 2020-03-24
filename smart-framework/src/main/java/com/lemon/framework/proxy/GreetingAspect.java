@@ -32,6 +32,17 @@ public class GreetingAspect {
         return result;
     }
 
+    /**
+     * 除了Around注解外，还有几个相关的注解
+     * Before——前置增强
+     * After——后置增强
+     * Around——环绕增强
+     * AfterThrowing——抛出增强
+     * DeclareParents——引入增强
+     * 此外还有一个AfterReturning(返回后增强)，也可以理解为Finally增强，相当于finally语句，
+     * 它是在方法结束后执行的，也就是说，它比After还要晚一些。
+     */
+
     private void after() {
         System.out.println("After");
     }
