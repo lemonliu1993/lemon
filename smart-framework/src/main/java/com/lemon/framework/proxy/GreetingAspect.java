@@ -3,6 +3,7 @@ package com.lemon.framework.proxy;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
+import org.aspectj.lang.annotation.DeclareParents;
 import org.springframework.stereotype.Component;
 
 /**
@@ -50,5 +51,9 @@ public class GreetingAspect {
     private void before() {
         System.out.println("Before");
     }
+
+
+    @DeclareParents(value = "com.lemon.framework.proxy.GreetingImpl", defaultImpl = ApologyImpl.class)
+    private Apology apology;
 
 }
