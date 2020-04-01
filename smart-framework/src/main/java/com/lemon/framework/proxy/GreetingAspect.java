@@ -26,7 +26,7 @@ public class GreetingAspect {
      * (..)表示方法的参数是任意的
      */
     @Around("execution(* com.lemon.framework.proxy.GreetingImpl.*(..))")
-    public Object arount(ProceedingJoinPoint pjp) throws Throwable {
+    public Object around(ProceedingJoinPoint pjp) throws Throwable {
         before();
         Object result = pjp.proceed();
         after();
