@@ -231,17 +231,70 @@ public final class DatabaseHelper<T> {
     /**
      * 执行SQL文件
      */
-    public static void executeSqlFile(String filePath)throws Exception{
+    public static void executeSqlFile(String filePath) throws Exception {
         InputStream is = Thread.currentThread().getContextClassLoader().getResourceAsStream(filePath);
         BufferedReader reader = new BufferedReader(new InputStreamReader(is));
         try {
             String sql;
-            while((sql=reader.readLine())!=null){
+            while ((sql = reader.readLine()) != null) {
                 executeUpdate(sql);
             }
-        }catch (Exception e){
-            LOGGER.error("execute sql file failture",e);
+        } catch (Exception e) {
+            LOGGER.error("execute sql file failture", e);
             throw new RuntimeException(e);
+        }
+    }
+
+    /**
+     * 开启事务
+     */
+    public static void beginTransaction() {
+        Connection conn = getConnection();
+        if (conn != null) {
+            try {
+                conn.setAutoCommit(false);
+            } catch (SQLException e) {
+                LOGGER.error("begin transaction failure", e);
+                throw new RuntimeException(e);
+            } finally {
+                CONNECTION_HOLDER.set(conn);
+            }
+        }
+    }
+
+    /**
+     * 提交事务
+     */
+    public static void commitTransaction() {
+        Connection conn = getConnection();
+        if (conn != null) {
+            try {
+                conn.commit();
+                conn.close();
+            } catch (SQLException e) {
+                LOGGER.error("commit transaction failure", e);
+                throw new RuntimeException(e);
+            } finally {
+                CONNECTION_HOLDER.remove();
+            }
+        }
+    }
+
+    /**
+     * 回滚事务
+     */
+    public static void rollbackTransaction() {
+        Connection conn = getConnection();
+        if (conn != null) {
+            try {
+                conn.rollback();
+                conn.close();
+            } catch (SQLException e) {
+                LOGGER.error("rollback transaction failure", e);
+                throw new RuntimeException(e);
+            } finally {
+                CONNECTION_HOLDER.remove();
+            }
         }
     }
 
