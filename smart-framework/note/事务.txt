@@ -18,3 +18,28 @@ JDBC只是连接Java程序与数据库的桥梁而已，那么数据库又是怎
 当插入数据时，就锁定表，这叫 表锁；
 当更新数据时，就锁定行，这叫 锁行。
 
+除了JDBC给我们提供的事务隔离级别这种解决方案以外，还有哪些解决方案可以完善事务管理功能呢？
+Spring的解决方案，它是对JDBC的补充或扩展。它提供了一个非常重要的功能——事务传播行为(Transaaction Propagation Bahavior)
+Spring一共提供了7种事务传播行为。
+PROPAGATION_REQUIRED
+PROPAGATION_REQUIRES_NEW
+PROPAGATION_NESTED
+PROPAGATION_SUPPORTS
+PROPAGATION_NOT_SUPPORTED
+PROPAGATION_NEVER
+PROPAGATION_MANDATORY
+首先要明确事务从哪里来传播到哪里去？答案是从方法A传播到方法B。Spring解决的只是方法之间的事务传播，比如：
+方法A有事务，方法B也有事务
+方法A有事务，方法B没有事务
+方法A没有事务，方法B有事务
+方法A没有事务，方法B也没有事务
+假设事务从方法A传播到方法B，用户需要面对方法B，问自己一个问题：方法A有事务吗？
+1.如果没有，就新建一个事务；如果有，就加入当前事务。这就是PROPAGATION_REQUIRED。它也是Spring提供的默认事务传播行为，适合绝大多数情况
+2.如果没有，就新建一个事务；如果有，就将当前事务挂起，这就是PROPAGATION_REQUIRES_NEW,意思是创建来一个新的事务，它和原来的事务没有任何关系了。
+3.如果没有，就新建一个事务；日光有，就在当前事务中嵌套其他事务，这就是PROPAGATION_NESTED，也就是"嵌套事务"，所嵌套的子事务与主事务之间是有关联的(当主事务提交或回滚，子事务也会提交或回滚)。
+4.如果没有，就以非事务方式执行；如果有，就使用当前事务。这就是PROPAGATION_SUPPORTS，这种方式非常随意，没有就没有，有就有，有点无所谓的态度。
+5.如果没有，就以非事务方式执行；如果有，就将当前事务挂起。这就是PROPAGATION_NOT_SUPPORTED，这种方式非常强硬，没有就没有，有也不支持，挂起来，不管它。
+6.如果没有，就以非事务方式执行；如果有，就抛出异常，这就是PROPAGATION_NEVER，这种方式更强硬，没有就没有，有了反而报错，它对大家宣称：我从不支持事务。
+7.如果没有，就抛出异常；如果有，就使用当前事务。这就是PROPAGATION_MANDATORY，这种方式可以说是最强硬的，没有事务直接就报错，它对全世界说，我必须要有事务。
+
+
