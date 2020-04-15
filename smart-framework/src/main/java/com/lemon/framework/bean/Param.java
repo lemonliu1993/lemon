@@ -1,6 +1,7 @@
 package com.lemon.framework.bean;
 
 import com.lemon.framework.util.CastUtil;
+import com.lemon.framework.util.CollectionUtil;
 
 import java.util.Map;
 
@@ -18,14 +19,21 @@ public class Param {
     /**
      * 根据参数名获取long型参数值
      */
-    public long getLong(String name){
+    public long getLong(String name) {
         return CastUtil.castLong(paramMap.get(name));
     }
 
     /**
      * 获取所有字段信息
      */
-    public Map<String,Object> getMap(){
+    public Map<String, Object> getMap() {
         return paramMap;
+    }
+
+    /**
+     * 验证参数是否为空
+     */
+    public boolean isEmpty() {
+        return CollectionUtil.isEmpty(paramMap);
     }
 }

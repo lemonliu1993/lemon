@@ -10,6 +10,7 @@ import com.lemon.framework.helper.ControllerHelper;
 import com.lemon.framework.util.*;
 
 import javax.servlet.*;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -24,6 +25,7 @@ import java.util.Map;
  * 请求转发器
  * Created by lemoon on 2020/3/16 5:39 PM
  */
+@WebServlet(urlPatterns = "/*", loadOnStartup = 0)
 public class DispatcherServlet extends HttpServlet {
 
     @Override
@@ -76,7 +78,12 @@ public class DispatcherServlet extends HttpServlet {
             Param param = new Param(paramMap);
             //调用Action方法
             Method actionMethod = handler.getActionMethod();
-            Object result = ReflectionUtil.invokeMethod(controllerBean, actionMethod, param);
+            Object result;
+            if (param.isEmpty()) {
+                result = ReflectionUtil.invokeMethod(controllerBean, actionMethod);
+            } else {
+                result = ReflectionUtil.invokeMethod(controllerBean, actionMethod, param);
+            }
             //处理Action方法返回值
             if (result instanceof View) {
                 //返回JSP页面
