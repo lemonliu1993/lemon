@@ -4,3 +4,12 @@
 如何与Servlet API完全解耦；
 如何实现安全控制框架；
 如何实现Web服务框架；
+
+
+必须在DispatcherServlet中将Request和Response这些对象传递给Controller的Action方法才能拿到这些对象
+最好能让Controller的完全不使用Servlet API就能操作Request与Response对象。
+最容易拿到Request与Response对象的地方就是DIspatcherServlet的service方法。
+
+然而，我们又不想把Request与Response对象传递到Controller的Action方法中，所以我们需要提供一个线程安全的对象，通过它来封装Request与Response对象，并提供一系列常用的Servlet API，这样我们就可以在Controller中随时通过该对象来操作Request与Response对象的方法了。
+需要强调的是，这个对象一定是线程安全的，也就是说，每个请求线程独自拥有一份Request与Response对象，不同请求线程之间是隔离的。
+
