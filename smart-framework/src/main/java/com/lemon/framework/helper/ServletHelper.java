@@ -7,6 +7,7 @@ import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.io.IOException;
 
 /**
  * Servlet助手类
@@ -70,5 +71,57 @@ public final class ServletHelper {
         return getRequest().getServletContext();
     }
 
+    /**
+     * 将属性放入Request中
+     */
+    public static void setRequestAttribute(String key, Object value) {
+        getRequest().setAttribute(key, value);
+    }
+
+    /**
+     * 从Request中获取属性
+     */
+    public static <T> T getRequestAttribute(String key) {
+        return (T) getRequest().getAttribute(key);
+    }
+
+    /**
+     * 从Request中移除属性
+     */
+    public static void remoteRequestAttribute(String key) {
+        getRequest().removeAttribute(key);
+    }
+
+    /**
+     * 发送重定向响应
+     */
+    public static void sendDirect(String location) {
+        try {
+            getResponse().sendRedirect(getRequest().getContextPath() + location);
+        } catch (IOException e) {
+            LOGGER.error("redirect failure", e);
+        }
+    }
+
+    /**
+     * 将属性放入Session中
+     */
+    public static void setSessionAttribute(String key, Object value) {
+        getSession().setAttribute(key, value);
+    }
+
+    /**
+     * 从Session中获取属性
+     */
+    public static <T> T getSessionAttribute(String key) {
+        return (T) getRequest().getSession().getAttribute(key);
+    }
+
+    /**
+     * 使Session失效
+     */
+    public static void invalidateSession() {
+        getRequest().getSession().invalidate();
+    }
 
 }
