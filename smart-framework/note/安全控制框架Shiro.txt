@@ -1,0 +1,5 @@
+Shiro提供的服务非常明确：
+1.Authentication认证
+2.Authorization授权
+3.Session Management会话管理
+4.Cryptography加密
