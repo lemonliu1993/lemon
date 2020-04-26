@@ -4,3 +4,5 @@ Shiro提供的服务非常明确：
 3.Session Management会话管理
 4.Cryptography加密
 
+Shiro依赖于SLFJ日志框架，而SLFJ只是一个接口，并没有提供具体的实现。
+可以选择Log4J作为他的实现，正好SLFJ也提供了一个slf4j-log4j12的Artifact。
